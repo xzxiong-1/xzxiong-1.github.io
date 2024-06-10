@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202406062339664.png">
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405131751273.png">
 <meta property="article:published_time" content="2024-06-10T15:22:31.000Z">
-<meta property="article:modified_time" content="2024-06-10T16:37:35.044Z">
+<meta property="article:modified_time" content="2024-06-10T16:44:07.855Z">
 <meta property="article:author" content="xzxiong">
 <meta property="article:tag" content="Object Detection">
 <meta property="article:tag" content="YOLO">
@@ -327,8 +327,7 @@
 <figure>
 <img src="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405151132320.png" srcset="/img/loading.gif" lazyload alt="图2 整体结构图(源自https://github.com/open-mmlab/mmyolo/tree/dev/configs/yolov8)" /><figcaption>图2 整体结构图(源自https://github.com/open-mmlab/mmyolo/tree/dev/configs/yolov8)</figcaption>
 </figure>
-<p>从两个模型的yaml文件可以看出，不同尺度大小的模型，yolov5的最大通道采用了统一大小的最大通道，均为1024，yolov8中n/s、l/x分别采用了相同大小的最大通达，s/m/l则进行了精调, 主要目的是为了平衡各个模型的参数量。 <img src="D:/document/Obsidian/deep%2520learning/paper%2520%2520read/YOLOs/images/Pasted%2520image%252020240122161239.png" srcset="/img/loading.gif" lazyload /></p>
-<p>​ 图3 YOLOv8与YOLOv5模型系数比较</p>
+<p>从两个模型的yaml文件可以看出，不同尺度大小的模型，yolov5的最大通道采用了统一大小的最大通道，均为1024，yolov8中n/s、l/x分别采用了相同大小的最大通达，s/m/l则进行了精调, 主要目的是为了平衡各个模型的参数量。 <img src="D:/document/Obsidian/deep%2520learning/paper%2520%2520read/YOLOs/images/Pasted%2520image%252020240122161239.png" srcset="/img/loading.gif" lazyload alt="图3 YOLOv8与YOLOv5模型系数比较" /></p>
 <h3 id="backbone">2.1 Backbone</h3>
 <p><img src="D:/document/Obsidian/deep%2520learning/paper%2520%2520read/YOLOs/images/Pasted%2520image%252020240122162925.png" srcset="/img/loading.gif" lazyload /></p>
 <p>​ 图4 YOLOv8与YOLOv5的Backbone比较</p>
@@ -386,7 +385,7 @@
 <p>yolov5、yolox和yolov8三者的Head中，yolov5为ancher base，yolov8和yolox为ancher free, 并且yolov8和yolox均用了decoupled detection head(两个并行分支分别完成检测和分类，yolox的论文显示采用decoupled detection head能够提升AP约1.1个百分点<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" data-aria-label="https://arxiv.org/abs/2107.08430">[4]</span></a></sup>),预测输出方面:</p>
 <p>yolov5: 对于特征图上的每一个grid cell预测(<span class="math inline">\(N_{cls}\)</span> + 4 + 1)x3个参数，其中<span class="math inline">\(N_{cls}\)</span>表示类别数，<code>4</code>表示网络预测bbox的相关参数，<code>1</code>表示是否有目标。</p>
 <p>yolox: 对于特征图上的每个grid point预测(<span class="math inline">\(N_{cls}\)</span> + 4 + 1)个参数。<span class="math inline">\(N_{cls}\)</span>、<code>4</code>、<code>1</code>的含义和yolov5相同。对于有80个类别的coco数据集， 三个检查头所预测的参数个数分别为80x80x(80 + 4 + 1)、40x40x(80 + 4 + 1)、20x20x(80 + 4 + 1)个参数。</p>
-<p>yolov8: yolov8消除了yolox中判断是否有物体的obj. 分支， 对于特征图上的每个特征点预测(<span class="math inline">\(N_{cls}\)</span> + 4* <span class="math inline">\(\text{reg_max}\)</span>)个参数，在yolox中分类和回归分支的通道数均为256，yolov8认为作为两个不同的分支，用于表征不同的特征，通道数不应该是相等的<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" data-aria-label="https://zhuanlan.zhihu.com/p/599761847">[5]</span></a></sup>，对于分类分支通倒数<span class="math inline">\(C_{cls}\)</span> 设置为<span class="math inline">\(max(C^{3},min(N_{cls},100))\)</span>，回归分支的通道数<span class="math inline">\(C_{reg}\)</span>为$ max(16,C^{3}/4,4*) <span class="math inline">\(。对于有80个类别的coco数据集，假设\)</span><span class="math inline">\(为16，\)</span>w$取1: <span class="math display">\[ \begin{aligned}
+<p>yolov8: yolov8消除了yolox中判断是否有物体的obj. 分支， 对于特征图上的每个特征点预测(<span class="math inline">\(N_{cls}\)</span> + 4* <span class="math inline">\(\text{reg_max}\)</span>)个参数，在yolox中分类和回归分支的通道数均为256，yolov8认为作为两个不同的分支，用于表征不同的特征，通道数不应该是相等的<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" data-aria-label="https://zhuanlan.zhihu.com/p/599761847">[5]</span></a></sup>，对于分类分支通倒数<span class="math inline">\(C_{cls}\)</span> 设置为<span class="math inline">\(max(C^{3},min(N_{cls},100))\)</span>，回归分支的通道数<span class="math inline">\(C_{reg}\)</span>为<span class="math inline">\(max(16,C^{3}/4,4*\text{reg_max})\)</span>。对于有80个类别的coco数据集，假设$  <span class="math inline">\(为16，\)</span>w$取1: <span class="math display">\[ \begin{aligned}
 &amp;C_{cls}=max(256,min(80, 100))=256 \\
 &amp;C_{reg}=max(16,256/4,4*16)=64
 \end{aligned} \]</span> 对于YOLOv8两个分支最后的Conv2d模块:</p>
