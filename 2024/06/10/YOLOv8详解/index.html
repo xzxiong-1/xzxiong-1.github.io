@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202406062339664.png">
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405131751273.png">
 <meta property="article:published_time" content="2024-06-10T15:22:31.000Z">
-<meta property="article:modified_time" content="2024-06-10T16:13:29.503Z">
+<meta property="article:modified_time" content="2024-06-10T16:15:40.208Z">
 <meta property="article:author" content="xzxiong">
 <meta property="article:tag" content="Object Detection">
 <meta property="article:tag" content="YOLO">
@@ -393,7 +393,6 @@
 <p>​                        图9 wr、wb与target_box的相对关系</p>
 <p>由于代码<code>_df_loss</code>中<code>tl = target.long()</code>会直接对target_box的$l,t,r,b$向下取整，向下取整会使原值的波动范围为$[0, 1]$之间，1在图中正好是两个方格的宽度，$wl_l, wl_t, wl_r, wl_b$($wl &#x3D; tr - target$，$wl$由$wl_{l}、wl_{t}、wl_{r}、wl_{b}$组成)显示了偏外侧的程度，值越小则说明target_box的对应边在两个方格中越偏外侧box1(对应于代码<code>_df_loss</code>中的$tl$)，同理$wr_l, wr_t, wr_r, wr_b$($wr &#x3D; 1 - wl$，$wr$由$wr_{l}、wr_{t}、wr_{r}、wr_{b}$组成)则显示了偏内侧的程度，值越小则说明target_box的对应边越偏内侧box2(对应于代码<code>_df_loss</code>中的$tr$)。<br>我们再来看一下DFL的公式:<br>$$\mathbf{DFL}(\mathcal{S}<em>i,\mathcal{S}</em>{i+1})&#x3D;-\big((y_{i+1}-y)\log(\mathcal{S}<em>i)+(y-y_i)\log(\mathcal{S}</em>{i+1})\big)$$<br>其中:   $y_{i+1}-y$对应于代码<code>_df_loss</code>中的$wl$, $y-y_i$对应于$wr$<br>       $log(\mathcal{S}<em>i)$对应于:<br>      F.cross_entropy(pred_dist, tl.view(-1), reduction&#x3D;’none’)<br>      $log(\mathcal{S}</em>{i+1}$)对应于:<br>      &#96;F.cross_entropy(pred_dist, tr.view(-1), reduction&#x3D;’none’)</p>
 <h3 id="2-5-正负样本匹配"><a href="#2-5-正负样本匹配" class="headerlink" title="2.5 正负样本匹配"></a>2.5 正负样本匹配</h3><p>正负样本匹配方面，YOLOV8和YOLOX均采用了动态的样本分配策略，YOLOV8采用了TOOD的 TaskAlignedAssigner方式，关于TOOD的详细讲解，可参考博文<sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="[https://www.hbblog.cn/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/TOOD/](https://www.hbblog.cn/论文解读/TOOD/)">[9]</span></a></sup>，YOLOX则采用了 simOTA方式，具体可参考视频<sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://www.bilibili.com/video/BV1JW4y1k76c/?spm_id_from=333.337.search-card.all.click&vd_source=81b307c731d291353c2f2db16d04d4f8">[10]</span></a></sup>。</p>
-<h3 id="question"><a href="#question" class="headerlink" title="question"></a>question</h3><p>1、focus操作如何计算感受野？</p>
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/ultralytics/ultralytics">https://github.com/ultralytics/ultralytics</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://juejin.cn/post/7187726947252699192">https://juejin.cn/post/7187726947252699192</a>
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://github.com/ultralytics/yolov5/issues/8785">https://github.com/ultralytics/yolov5/issues/8785</a>
