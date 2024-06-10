@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202406062339664.png">
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405131751273.png">
 <meta property="article:published_time" content="2024-06-10T15:22:31.000Z">
-<meta property="article:modified_time" content="2024-06-10T16:52:50.187Z">
+<meta property="article:modified_time" content="2024-06-10T16:55:01.730Z">
 <meta property="article:author" content="xzxiong">
 <meta property="article:tag" content="Object Detection">
 <meta property="article:tag" content="YOLO">
@@ -327,7 +327,8 @@
 <figure>
 <img src="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405151132320.png" srcset="/img/loading.gif" lazyload alt="图2 整体结构图(源自https://github.com/open-mmlab/mmyolo/tree/dev/configs/yolov8)" /><figcaption>图2 整体结构图(源自https://github.com/open-mmlab/mmyolo/tree/dev/configs/yolov8)</figcaption>
 </figure>
-<p>从两个模型的yaml文件可以看出，不同尺度大小的模型，yolov5的最大通道采用了统一大小的最大通道，均为1024，yolov8中n/s、l/x分别采用了相同大小的最大通达，s/m/l则进行了精调, 主要目的是为了平衡各个模型的参数量。 <img src="20240122161239.png" srcset="/img/loading.gif" lazyload alt="图3 YOLOv8与YOLOv5模型系数比较" /></p>
+<p>从两个模型的yaml文件可以看出，不同尺度大小的模型，yolov5的最大通道采用了统一大小的最大通道，均为1024，yolov8中n/s、l/x分别采用了相同大小的最大通达，s/m/l则进行了精调, 主要目的是为了平衡各个模型的参数量。</p>
+<img src="/2024/06/10/YOLOv8%E8%AF%A6%E8%A7%A3/20240122161239.png" srcset="/img/loading.gif" lazyload class="" title="图3 YOLOv8与YOLOv5模型系数比较">
 <h3 id="backbone">2.1 Backbone</h3>
 <p><img src="D:/document/Obsidian/deep%2520learning/paper%2520%2520read/YOLOs/images/Pasted%2520image%252020240122162925.png" srcset="/img/loading.gif" lazyload /></p>
 <p>​ 图4 YOLOv8与YOLOv5的Backbone比较</p>
