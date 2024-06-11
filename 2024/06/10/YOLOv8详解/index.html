@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202406062339664.png">
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405131751273.png">
 <meta property="article:published_time" content="2024-06-10T15:22:31.000Z">
-<meta property="article:modified_time" content="2024-06-11T16:03:49.728Z">
+<meta property="article:modified_time" content="2024-06-11T16:10:11.349Z">
 <meta property="article:author" content="xzxiong">
 <meta property="article:tag" content="Object Detection">
 <meta property="article:tag" content="YOLO">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k words
+          2.6k words
         
       </span>
     
@@ -338,9 +338,13 @@
 <figure>
 <img src="20240122162925.png" srcset="/img/loading.gif" lazyload alt="图4 YOLOv8与YOLOv5的Backbone比较" /><figcaption>图4 YOLOv8与YOLOv5的Backbone比较</figcaption>
 </figure>
-<p><strong>Backbone中yolov5和yolov8主要有两点差异:</strong> (1) 提取初步特征的第一个卷积层的卷积核kernel，yolov5为6x6, yolov8为3x3，感受野相比于yolov5进一步缩小<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" data-aria-label="https://juejin.cn/post/7187726947252699192">[2]</span></a></sup>。</p>
-<ol start="2" type="1">
-<li>yolov5中的C3模块在yolov8中被替换为了C2f，C2f则采用了yolov7中ELAN 多层堆叠的结构，增加了更多类似resnet残差块中的跳跃连接,丰富了模型的梯度流。 <img src="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405132056678.png" srcset="/img/loading.gif" lazyload alt="图5 C3与C2f对比图(源自https://openmmlab.medium.com/dive-into-yolov8-how-does-this-state-of-the-art-model-work-10f18f74bab1)" /></li>
+<p><strong>Backbone中yolov5和yolov8主要有两点差异:</strong></p>
+<ol type="1">
+<li><p>提取初步特征的第一个卷积层的卷积核kernel，yolov5为6x6, yolov8为3x3，感受野相比于yolov5进一步缩小<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" data-aria-label="https://juejin.cn/post/7187726947252699192">[2]</span></a></sup>。</p></li>
+<li><p>yolov5中的C3模块在yolov8中被替换为了C2f，C2f则采用了yolov7中ELAN 多层堆叠的结构，增加了更多类似resnet残差块中的跳跃连接,丰富了模型的梯度流。</p>
+<figure>
+<img src="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405132056678.png" srcset="/img/loading.gif" lazyload alt="图5 C3与C2f对比图(源自https://openmmlab.medium.com/dive-into-yolov8-how-does-this-state-of-the-art-model-work-10f18f74bab1)" /><figcaption>图5 C3与C2f对比图(源自https://openmmlab.medium.com/dive-into-yolov8-how-does-this-state-of-the-art-model-work-10f18f74bab1)</figcaption>
+</figure></li>
 </ol>
 <h4 id="sppf模块">2.1.1 SPPF模块</h4>
 <figure>
