@@ -27,6 +27,7 @@
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202406062231676.png">
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405151132320.png">
 <meta property="og:image" content="https://xzxiong-1.github.io/2024/06/10/YOLOv8%E8%AF%A6%E8%A7%A3/20240122161239.png">
+<meta property="og:image" content="https://xzxiong-1.github.io/2024/06/10/YOLOv8%E8%AF%A6%E8%A7%A3/20240122161239.png">
 <meta property="og:image" content="https://xzxiong-1.github.io/2024/06/10/YOLOv8%E8%AF%A6%E8%A7%A3/20240122162925.png">
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405132056678.png">
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202406062235111.png">
@@ -38,7 +39,7 @@
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202406062339664.png">
 <meta property="og:image" content="https://makedown-imgs.oss-cn-hangzhou.aliyuncs.com/imgs/202405131751273.png">
 <meta property="article:published_time" content="2024-06-10T15:22:31.000Z">
-<meta property="article:modified_time" content="2024-06-10T17:07:38.205Z">
+<meta property="article:modified_time" content="2024-06-11T15:15:42.575Z">
 <meta property="article:author" content="xzxiong">
 <meta property="article:tag" content="Object Detection">
 <meta property="article:tag" content="YOLO">
@@ -330,6 +331,9 @@
 </figure>
 <p>从两个模型的yaml文件可以看出，不同尺度大小的模型，yolov5的最大通道采用了统一大小的最大通道，均为1024，yolov8中n/s、l/x分别采用了相同大小的最大通达，s/m/l则进行了精调, 主要目的是为了平衡各个模型的参数量。</p>
 <img src="/2024/06/10/YOLOv8%E8%AF%A6%E8%A7%A3/20240122161239.png" srcset="/img/loading.gif" lazyload class="" title="图3 YOLOv8与YOLOv5模型系数比较">
+<figure>
+<img src="20240122161239.png" srcset="/img/loading.gif" lazyload alt="图3 YOLOv8与YOLOv5模型系数比较" /><figcaption>图3 YOLOv8与YOLOv5模型系数比较</figcaption>
+</figure>
 <h3 id="backbone">2.1 Backbone</h3>
 <img src="/2024/06/10/YOLOv8%E8%AF%A6%E8%A7%A3/20240122162925.png" srcset="/img/loading.gif" lazyload class="" title="图4 YOLOv8与YOLOv5的Backbone比较">
 <p><strong>Backbone中yolov5和yolov8主要有两点差异:</strong> (1) 提取初步特征的第一个卷积层的卷积核kernel，yolov5为6x6, yolov8为3x3，感受野相比于yolov5进一步缩小<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" data-aria-label="https://juejin.cn/post/7187726947252699192">[2]</span></a></sup>。</p>
@@ -392,7 +396,7 @@
 \end{aligned} \]</span> 对于YOLOv8两个分支最后的Conv2d模块:</p>
 <ol type="1">
 <li><p>类别预测分支输出的维度为:</p>
-<pre><code class="hljs">                                    $[B,N_&#123;cls&#125;,H,W]$  </code></pre></li>
+<pre><code class="hljs">                        $[B,N_&#123;cls&#125;,H,W]$  </code></pre></li>
 <li><p>回归预测分支的输出维度为:<br />
 <span class="math inline">\([B,4*\text{reg_max},H,W]\)</span></p>
 <p>其中<span class="math inline">\(B\)</span>为batch，<span class="math inline">\(H，W\)</span>分别表示特征图高与宽</p></li>
